@@ -1,77 +1,59 @@
 import threading
-import os
 
+def SmallLetter(Data):
+    Total = 0
 
-def ChkSmall(Elements) :
-    i = 0
-    Sum = 0
+    for i in Data:
+        if(i.islower()):
+            Total+=1
 
-    for i in Elements :
-        if (i >= 'a' and i<= 'z') :
-            Sum = Sum + 1
-
-    print("Sum of small elements is : ",Sum)
-
-    print("Small Thread id : ",threading.get_ident())
+    print("Thread ID : ",threading.get_ident())
     print("Thread name : ",threading.current_thread().name)
+    print("Total Small letters : ",Total)
+    print()
 
-    print("----------------------------------------------------------------")
+def CapitalLetter(Data):
+    Total = 0
 
+    for i in Data:
+        if(i.isupper()):
+            Total+=1
 
-def ChkCapital(Elements) :
-    i = 0
-    Sum = 0
-
-    for i in Elements :
-        if (i >= 'A' and i<= 'Z') :
-            Sum = Sum + 1
-
-    print("Sum of capital elements is : ",Sum)
-
-    print("Capital Thread id : ",threading.get_ident())
+    print("Thread ID : ",threading.get_ident())
     print("Thread name : ",threading.current_thread().name)
+    print("Total Capital letters : ",Total)
+    print()
 
-    print("----------------------------------------------------------------")
+def DigitCount(Data):
+    Total = 0
 
+    for i in Data:
+        if(i.isdigit()):
+            Total+=1
 
-def ChkNumbers(Elements) :
-    i = 0
-    Sum = 0
-
-    for i in Elements :
-        if (i >= '0' and i<= '9') :
-            Sum = Sum + 1
-
-    print("Sum of numeric elements is : ",Sum)
-
-    print("Numbers Thread id : ",threading.get_ident())
+    print("Thread ID : ",threading.get_ident())
     print("Thread name : ",threading.current_thread().name)
+    print("Total digits : ",Total)
+    print()
 
-    print("----------------------------------------------------------------")
-        
+def main():
 
+    String= "PragatiBhoyte73"
 
-def main() :
-    Data = ""
-    
-    print("Enter String : ")
-    Data = (input())
-
-    Small = threading.Thread(target = ChkSmall, args = (Data,))
-    Capital = threading.Thread(target = ChkCapital, args = (Data,))
-    Numbers = threading.Thread(target = ChkNumbers, args = (Data,))
+    Small = threading.Thread(target=SmallLetter,args=(String,))
+    Capital = threading.Thread(target=CapitalLetter, args=(String,))
+    Digits = threading.Thread(target=DigitCount, args=(String,))
 
     Small.start()
-    Small.join()
-
     Capital.start()
+    Digits.start()
+
+    Small.join()
     Capital.join()
+    Digits.join()
 
-    Numbers.start()
-    Numbers.join()
+    print("Exit from main thread", threading.get_ident())
 
-    print("Exit from main")
-    
-
-if __name__ == "__main__" :
+if __name__ == "__main__":
     main()
+

@@ -1,49 +1,30 @@
 import threading
-import concurrent.futures
 
+def Addition(Data):
+    Sum=0
+    for i in Data:
+        Sum=Sum+i
+    print("Addition is :",Sum)
 
-def Addition(Elements) :
-    sum = 0
-    for i in Elements :
-        sum = sum + i
-                    
-    return sum
-
-
-def Product(Elements) :
-    Mult = 1
-
-    for i in Elements :
-        Mult = Mult * i
-                    
-    return Mult
-
-
-def main() :
-    Value = 0
-    i = 0
-    Data = list()
-
-    print("Number of elements you want in list : ")
-    Size = int(input())
+def Multiplication(Data):
+    Product=1
+    for i in Data:
+        Product=Product*i
+    print("Multiplication is :",Product)
+        
+def main():
     
-    print("Enter numbers : ")
-    for i in range (Size) :
-        Value = int(input())
-        Data.append(Value)
-
-    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor :
-        future1 = executor.submit(Addition,Data)
-        future2 = executor.submit(Product,Data)
-
-    result1 = future1.result()
-    result2 = future2.result()
-
-    print("Addition is : ",result1)
-    print("Product is : ",result2)
+    Numbers = [1,2,3,4,5,6,7,8,9,10]
     
-    print("Exit from main")
-    
+    Thread1 =threading.Thread(target = Addition ,args=(Numbers,))
+    Thread2 =threading.Thread(target = Multiplication ,args=(Numbers,))
 
-if __name__ == "__main__" :
+    Thread1.start()
+    Thread2.start()
+
+    Thread1.join()
+    Thread2.join()
+
+if __name__ == "__main__":
     main()
+

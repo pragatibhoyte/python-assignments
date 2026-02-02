@@ -1,71 +1,40 @@
 import threading
- 
-def ChkPrime(No) :
-    sum = 0
 
-    for i in range (1,No) :
-        if (No%i == 0) :
-            sum = sum+1
-    
-    if(sum == 1) :
-        return True
-    else :
+def is_prime(n):
+    if(n<=1):
         return False
+    for i in range(2,n):
+        if(n % i == 0):
+            return False
+    return True
 
+def PrimeFun(Data):
+    print("Prime numbers:", end=' ')
+    for i in Data:
+        if(is_prime(i)==True):
+            print(i, end=" ")
+    print()
 
-def Prime(Elements) :
-    i = 0
-    Ret = False
-    PrimeElements = list()
+def NonPrimeFun(Data):
+    print("Non Prime numbers:", end=' ')
+    for i in Data:
+        if(is_prime(i)==False):
+            print(i, end=" ")
+    print()
+        
+def main():
 
-    for i in Elements :
-            Ret = ChkPrime(i) 
+    Numbers = [1,2,3,4,5,6,7,8,9]
 
-            if(Ret == True) :
-                PrimeElements.append(i)
-                    
-    print("Prime Elements : ",PrimeElements)
-    print("--------------------------------------------------------------------------")
+    Prime = threading.Thread(target=PrimeFun, args=(Numbers,))
+    NonPrime = threading.Thread(target=NonPrimeFun, args=(Numbers,))
 
+    Prime.start()
+    NonPrime.start()
 
-def NonPrime(Elements) :
-    i = 0
-    Ret = False
-    NonPrimeElements = list()
+    Prime.join()
+    NonPrime.join()
 
-    for i in Elements :
-            Ret = ChkPrime(i) 
-
-            if(Ret == False) :
-                NonPrimeElements.append(i)
-                    
-    print("Non Prime Elements : ",NonPrimeElements)  
-    print("--------------------------------------------------------------------------")  
-
-def main() :
-    Value = 0
-    i = 0
-    Data = list()
-
-    print("Number of elements you want in list : ")
-    Size = int(input())
-    
-    print("Enter numbers : ")
-    for i in range (Size) :
-        Value = int(input())
-        Data.append(Value)
-
-    T1 = threading.Thread(target = Prime, args = (Data,))
-    T2 = threading.Thread(target = NonPrime, args = (Data,))
-
-    T1.start()
-    T2.start()
-
-    T1.join()
-    T2.join()
-
-    print("Exit from main")
-    
-
-if __name__ == "__main__" :
+if __name__ == "__main__":
     main()
+

@@ -1,35 +1,31 @@
-
 import threading
 
+def Numbers(no):
+    for i in range(1,no+1):
+        print(i, end=" ")
 
-def Display() :
-    i = 0
+    print()
 
-    for i in range(1,(50+1)) :
-        print(i,end = "\t")
+def reverse(no):
+    for i in range(no,0,-1):
+        print(i ,end=" ")
 
-    print("")
-    print("----------------------------------------------------------------------------------------------")
+    print()
 
-def DisplayReverse() :
-    i = 0
 
-    for i in range(50,0,-1) :
-        print(i,end = "\t")
+def main():
+    Number = 50
 
-    print("")
-    print("----------------------------------------------------------------------------------------------")
+    Thread1= threading.Thread(target = Numbers, args=(Number,))
+    Thread2= threading.Thread(target = reverse, args=(Number,))
 
-def main() :
-    t1 = threading.Thread(target = Display)
-    t2 = threading.Thread(target = DisplayReverse)
+    Thread1.start()
+    Thread1.join()
 
-    t1.start()
-    t1.join()
+    Thread2.start()
+    Thread2.join()
 
-    t2.start()
-    t2.join()
-    
 
-if __name__ == "__main__" :
+if __name__ == "__main__":
     main()
+
