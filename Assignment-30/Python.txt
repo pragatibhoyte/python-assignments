@@ -1,0 +1,19 @@
+characteristics of Python:  Marvellous
+
+Simple and easy to learn
+
+High-level programming language
+
+Interpreted language
+
+Object-oriented
+
+Platform independent
+
+Dynamically typed
+
+Large standard library
+
+Open source
+
+Supports multiple programming paradigms
